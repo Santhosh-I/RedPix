@@ -1,153 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Mars Rover Photos Viewer</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(160deg, #a12d2d, #1b263b, #b7a851);
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      font-size: 2rem;
-      margin: 30px 0 20px;
-      color: #fff;
-      text-align: center;
-    }
-    .controls {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 20px;
-      border-radius: 12px;
-      display: flex;
-      gap: 15px;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-    label {
-      font-size: 14px;
-      color: #cfd8dc;
-    }
-    select, input {
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: none;
-      background: #0d1b2a;
-      color: #fff;
-    }
-    button {
-      padding: 10px 18px;
-      border-radius: 8px;
-      border: none;
-      background: #00b4d8;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #0096c7;
-      transform: scale(1.05);
-    }
-    .gallery {
-      width: 90%;
-      max-width: 1100px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: #1b263b;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .meta {
-      padding: 12px;
-      font-size: 14px;
-      background: rgba(255,255,255,0.05);
-    }
-    .meta b {
-      color: #90e0ef;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shakthi</title>
+    <!-- link to google font for inserting font families-->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+    <!--link to font awesome for inserting icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Link to css file for styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🚀 Mars Rover Photos Viewer</h1>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo">PORT<span>FOLIO</span></a>
+        <div class="nav-links">
+            <a href="#hero" class="nav-link">Home</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+        </div>
+    </nav>
+    <!--hero section-->
+    <section id="hero">
+        <div class="conatiner">
+            <div class="hero-content">
+            <div class="hero-text">
+                <h1>CODE THE FUTURE WITH ME</h1>
+                <h2>Frontend developer and UI designer</h2>
+                <p>Curiosity-driven and passionate about pushing creative boundaries, I am dedicated to transforming ideas into impactful solutions. With a multidisciplinary background, my journey blends technical skill, creative flair, and a knack for solving real-world challenges. Each project is a new adventure—a chance to learn, collaborate, and contribute meaningfully.</p>
+                <div class="btn-group">
+  <a href="#" class="btn btn-primary">
+    <i class="fas fa-rocket"></i>
+    View Projects
+  </a>
+  <a href="#" class="btn">
+    <i class="fas fa-paper-plane"></i>
+    Contact Me
+  </a>
+</div>
 
-  <div class="controls">
-    <label>
-      Rover:
-      <select id="rover">
-        <option>Curiosity</option>
-        <option>Perseverance</option>
-        <option>Opportunity</option>
-        <option>Spirit</option>
-      </select>
-    </label>
-
-    <label>
-      Date:
-      <input type="date" id="earth_date">
-    </label>
-
-    <button onclick="fetchPhotos()">Fetch Photos</button>
-  </div>
-
-  <div id="gallery" class="gallery"></div>
-
-  <script>
-    async function fetchPhotos() {
-      const rover = document.getElementById("rover").value;
-      const date = document.getElementById("earth_date").value;
-      const API_KEY = "DEMO_KEY"; // Replace with your NASA API key
-
-      if (!date) {
-        alert("Please select a date!");
-        return;
-      }
-
-      const url = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${API_KEY}`;
-      document.getElementById("gallery").innerHTML = "<p>⏳ Loading...</p>";
-
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        const photos = data.photos;
-
-        if (photos.length === 0) {
-          document.getElementById("gallery").innerHTML = "<p>❌ No photos found for this date.</p>";
-          return;
-        }
-
-        document.getElementById("gallery").innerHTML = photos.map(p => `
-          <div class="card">
-            <img src="${p.img_src}" alt="Mars Photo">
-            <div class="meta">
-              <b>${p.rover.name}</b> – ${p.camera.full_name}<br>
-              📅 ${p.earth_date} | Sol: ${p.sol}
+        </div>
+        <div class="profile-container">
+            <div class="profile-wrapper">
+                <img src="profile.jpg" alt="Profile" class="profile-img">
+                <div class="glow-effect"></div>
             </div>
-          </div>
-        `).join("");
-      } catch (error) {
-        console.error(error);
-        document.getElementById("gallery").innerHTML = "<p>⚠️ Error fetching photos.</p>";
-      }
-    }
-  </script>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <!--footer-->
+    <footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        Tony<span>Stark</span>
+      </div>
+      <p class="footer-text">
+        Creating digital experiences that illuminate the future of web development
+      </p>
+      <div class="social-links">
+        <a href="https://github.com/shakthiG06" class="social-link"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/shakthi-g-6633ab315?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+      </div>
+      <p class="copyright">
+        © 2025 Shakzz Portfolio. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+    <!-- Link to javascript file -->
+    <script src="script.js"></script>
 </body>
 </html>
