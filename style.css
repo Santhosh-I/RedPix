@@ -362,14 +362,16 @@ footer {
     margin-bottom: 30px;
 }
 
-.social-link {
+/* 🌐 Parent container */
+.social-links {
     display: flex;
     justify-content: center;
     gap: 25px;
     margin-bottom: 40px;
 }
 
-.social-link{
+/* 🔗 Each individual icon */
+.social-link {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -384,13 +386,15 @@ footer {
     text-decoration: none;
 }
 
-.social-link:hover{
+/* ✨ Hover effect */
+.social-link:hover {
     background: var(--neon-red);
     color: #000;
     transform: translateY(-8px);
     box-shadow: 0 10px 25px rgba(21, 7, 225, 0.4);
     border-color: var(--neon-red);
 }
+
 
 .copyright{
     color: var(--text-dim);
